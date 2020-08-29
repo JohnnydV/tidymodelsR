@@ -5,26 +5,43 @@ date: "8/29/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+
+# install.packages("tidymodels")
+# install.packages("readxl")
+# install.packages("broom.mixed")
+
+# libraries
+library(tidymodels)
+library(tidyr)
+library(dplyr)
+library(stringr)
+library(readxl)
+library(readr)
+
 ```
 
-## R Markdown
+# Part 1: Building a model
+https://www.tidymodels.org/start/models/
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## shortcuts: 
+cmd+opt+I = insert new chunk
+cmd+opt+C = run current chunk
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
+# import data
+urchins <- read_csv("https://tidymodels.org/start/models/urchins.csv") %>% 
+  # rename and factor columns
+  setNames(c("food_regime", "initial_volume", "width")) %>%
+  mutate(food_regime = factor(food_regime, levels = c("Initial", "Low", "High")))
 
-```{r cars}
-summary(cars)
+head(urchins)
+
+# plot the urhcins data
+ggplot(urchins, aes(x = initial_volume, y = width,
+                    group = food_regime, color = food_regime)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = F) +
+  scale_color_viridis_d(option = 'plasma', end = .7)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
