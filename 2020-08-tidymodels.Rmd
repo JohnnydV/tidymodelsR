@@ -6,7 +6,6 @@ output: html_document
 ---
 
 ```{r}
-<<<<<<< HEAD
 
 # install.packages("tidymodels")
 # install.packages("readxl")
@@ -91,47 +90,4 @@ ggplot(urchins_plot, aes (x = food_regime)) +
                     ymax = .pred_upper),
                 width = .1) +
   labs(y = 'urchin size')
-
-
-
-=======
-
-# install.packages("tidymodels")
-# install.packages("readxl")
-# install.packages("broom.mixed")
-
-# libraries
-library(tidymodels)
-library(tidyr)
-library(dplyr)
-library(stringr)
-library(readxl)
-library(readr)
-
-```
-
-# Part 1: Building a model
-https://www.tidymodels.org/start/models/
-
-## shortcuts: 
-cmd+opt+I = insert new chunk
-cmd+opt+C = run current chunk
-
-```{r}
-# import data
-urchins <- read_csv("https://tidymodels.org/start/models/urchins.csv") %>% 
-  # rename and factor columns
-  setNames(c("food_regime", "initial_volume", "width")) %>%
-  mutate(food_regime = factor(food_regime, levels = c("Initial", "Low", "High")))
-
-head(urchins)
-
-# plot the urhcins data
-ggplot(urchins, aes(x = initial_volume, y = width,
-                    group = food_regime, color = food_regime)) +
-  geom_point() +
-  geom_smooth(method = 'lm', se = F) +
-  scale_color_viridis_d(option = 'plasma', end = .7)
->>>>>>> 0fd62bb8039d65c258959a9c170c0f0526b9f936
-```
 
